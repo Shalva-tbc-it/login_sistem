@@ -1,5 +1,7 @@
 package com.example.reglogsistem
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -9,16 +11,23 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        auth = FirebaseAuth.getInstance()
         userNameFromDb()
+
+        binding.btnLogOut.setOnClickListener {
+            auth.signOut()
+            clicked(MainActivity())
+        }
 
     }
 
     private fun userNameFromDb() {
-        val user = FirebaseAuth.getInstance().currentUser
+        val user = auth.currentUser
 
         if (user != null) {
             val userId = user.uid
@@ -31,9 +40,11 @@ class ProfileActivity : AppCompatActivity() {
                     if (documentSnapshot.exists()) {
                         val userData = documentSnapshot.data
                         val username = userData?.get("username")
+                        val email = userData?.get("email")
 
                         if (username != null) {
                             binding.tvUserName.text = username.toString()
+                            binding.tvEmail.text = email.toString()
                         } else {
                             Toast.makeText(this, "Username not found", Toast.LENGTH_LONG).show()
                         }
@@ -48,4 +59,9 @@ class ProfileActivity : AppCompatActivity() {
             Toast.makeText(this, "User is not authenticated", Toast.LENGTH_LONG).show()
         }
     }
+
+    private fun clicked(targetActivity: Activity) {
+        startActivity(Intent(this, targetActivity::class.java))
+    }
+
 }
