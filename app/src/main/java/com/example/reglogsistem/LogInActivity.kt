@@ -41,7 +41,7 @@ class LogInActivity : AppCompatActivity() {
                     firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
                         if (it.isSuccessful) {
                             Toast.makeText(this@LogInActivity, "Success",Toast.LENGTH_LONG).show()
-                            finish()
+                            clicked(ProfileActivity())
                         }else {
                             Toast.makeText(this@LogInActivity, "Log in error",Toast.LENGTH_LONG).show()
                         }

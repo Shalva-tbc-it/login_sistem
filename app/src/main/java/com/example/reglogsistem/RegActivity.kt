@@ -47,7 +47,7 @@ class RegActivity : AppCompatActivity() {
 
             btnNext.setOnClickListener {
                 if (!isValidEmail(edEmail.text) && !isStrongPassword(edPass.text.toString())) {
-
+                    Toast.makeText(this@RegActivity, "Please fill all inputs.", Toast.LENGTH_LONG).show()
                 } else {
                     edPass.visibility = View.GONE
                     btnNext.visibility = View.GONE
@@ -86,7 +86,7 @@ class RegActivity : AppCompatActivity() {
                                     .set(userData)
                                     .addOnSuccessListener {
                                         // The field has been successfully added to Firestore
-                                        finish()
+                                        clicked(LogInActivity())
                                     }
                                     .addOnFailureListener { e ->
                                         // Error adding field

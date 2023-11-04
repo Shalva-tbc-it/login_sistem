@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".RegActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -44,6 +45,7 @@
             android:layout_marginTop="30dp"
             android:background="@drawable/ed_corner"
             android:fontFamily="@font/roboto"
+            android:textColor="@color/black"
             android:hint="@string/email"
             android:minHeight="48dp"
             android:padding="10dp" />
@@ -56,6 +58,7 @@
             android:background="@drawable/ed_corner"
             android:fontFamily="@font/roboto"
             android:hint="@string/pass"
+            android:textColor="@color/black"
             android:inputType="textPassword"
             android:minHeight="48dp"
             android:padding="10dp" />
@@ -87,6 +90,7 @@
             android:layout_height="wrap_content"
             android:text="@string/privacy"
             android:visibility="gone"
+            android:textColor="@color/black"
             android:fontFamily="@font/roboto"
             android:textSize="13sp"
             android:layout_marginTop="30dp"/>
