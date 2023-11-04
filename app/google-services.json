@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "61783058091",
+    "project_id": "reg-log-sistem",
+    "storage_bucket": "reg-log-sistem.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:61783058091:android:d0f4aa019d671fac5c79ee",
+        "android_client_info": {
+          "package_name": "com.example.reglogsistem"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvf50RCCcnSi53pLck5v7uTgY4DJlub98"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
