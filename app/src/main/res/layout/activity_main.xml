@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    style="@style/Theme.AppCompat.NoActionBar"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/mainBg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/main_bg"
+        app:layout_constraintBottom_toTopOf="@+id/guidLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgLogo"
+        android:background="@drawable/logo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guidLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.87" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="13dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guidLine">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnLog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto_bold"
+            android:background="@drawable/btn_white"
+            android:text="@string/log_in" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnReg"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:fontFamily="@font/roboto_bold"
+            android:background="@drawable/btn_black"
+            android:text="@string/reg"
+            android:layout_height="wrap_content"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

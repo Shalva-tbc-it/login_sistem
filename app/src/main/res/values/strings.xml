@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Reg Log Sistem</string>
+    <string name="log_in">Log in</string>
+    <string name="reg">Register</string>
+    <string name="email">Email</string>
+    <string name="pass">Password</string>
+    <string name="next">Next</string>
+    <string name="sign">Sign Up</string>
+    <string name="user">Username</string>
+
+    <string name="privacy">By signing up, you agree toPhoto’s
+        <u>Terms of Service</u> and
+        <u>Privacy Policy</u>.
+    </string>
+</resources>
