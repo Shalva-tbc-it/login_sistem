@@ -40,7 +40,7 @@ class RegActivity : AppCompatActivity() {
                     edEmail.hint = getString(R.string.email)
                     btnSignUp.visibility = View.GONE
                     tvPrivecy.visibility = View.GONE
-                } else{
+                } else {
                     finish()
                 }
             }
@@ -48,24 +48,17 @@ class RegActivity : AppCompatActivity() {
             btnNext.setOnClickListener {
                 if (!isValidEmail(edEmail.text) && !isStrongPassword(edPass.text.toString())) {
 
-                }else {
+                } else {
                     edPass.visibility = View.GONE
                     btnNext.visibility = View.GONE
                     edEmail.hint = getString(R.string.user)
                     btnSignUp.visibility = View.VISIBLE
                     tvPrivecy.visibility = View.VISIBLE
 
-
                     email = edEmail.text.toString()
                     pass = edPass.text.toString()
 
-//                    firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
-//                        if (it.isSuccessful) {
-//                            Toast.makeText(this@RegActivity, "Success",Toast.LENGTH_LONG).show()
-//                        }else {
-//                            Toast.makeText(this@RegActivity, "Error sign",Toast.LENGTH_LONG).show()
-//                        }
-//                    }
+                    edEmail.text?.clear()
 
                 }
 
@@ -78,27 +71,31 @@ class RegActivity : AppCompatActivity() {
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, pass)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            // Регистрация прошла успешно
+                            // registration success
                             val user = FirebaseAuth.getInstance().currentUser
-                            // Добавление дополнительного поля в базу данных Firestore
+                            // Adding an additional field to the Firestore database
                             if (user != null) {
                                 val userData = hashMapOf(
+                                    "username" to username,
                                     "email" to email,
-                                    "username" to username
+                                    "password" to pass
                                 )
 
                                 FirebaseFirestore.getInstance().collection("users")
                                     .document(user.uid)
                                     .set(userData)
                                     .addOnSuccessListener {
-                                        // Поле успешно добавлено в Firestore
+                                        // The field has been successfully added to Firestore
+                                        finish()
                                     }
                                     .addOnFailureListener { e ->
-                                        // Ошибка при добавлении поля
+                                        // Error adding field
+                                        Toast.makeText(this@RegActivity, "Registration failed $e.", Toast.LENGTH_LONG).show()
+
                                     }
                             }
                         } else {
-                            // Ошибка при регистрации
+                            Toast.makeText(this@RegActivity, "Registration failed.", Toast.LENGTH_LONG).show()
                         }
                     }
             }
@@ -107,7 +104,7 @@ class RegActivity : AppCompatActivity() {
     }
 
     private fun clicked(targetActivity: Activity) {
-        startActivity( Intent(this, targetActivity::class.java))
+        startActivity(Intent(this, targetActivity::class.java))
     }
 
     private fun isStrongPassword(password: String): Boolean {
@@ -118,7 +115,6 @@ class RegActivity : AppCompatActivity() {
     private fun isValidEmail(target: CharSequence?): Boolean {
         return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
     }
-
 
 
 }
