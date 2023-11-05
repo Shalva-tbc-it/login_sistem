@@ -8,6 +8,9 @@ import android.widget.Toast
 import com.example.reglogsistem.databinding.ActivityProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
@@ -18,12 +21,19 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
         userNameFromDb()
+        onClick()
 
-        binding.btnLogOut.setOnClickListener {
-            auth.signOut()
-            clicked(MainActivity())
+    }
+
+    private fun onClick() {
+
+        binding.apply {
+            btnLogOut.setOnClickListener {
+                auth.signOut()
+                clicked(MainActivity())
+                this@ProfileActivity.finish()
+            }
         }
-
     }
 
     private fun userNameFromDb() {
@@ -34,27 +44,26 @@ class ProfileActivity : AppCompatActivity() {
 
             val db = FirebaseFirestore.getInstance()
             val userRef = db.collection("users").document(userId)
+                userRef.get()
+                    .addOnSuccessListener { documentSnapshot ->
+                        if (documentSnapshot.exists()) {
+                            val userData = documentSnapshot.data
+                            val username = userData?.get("username")
+                            val email = userData?.get("email")
 
-            userRef.get()
-                .addOnSuccessListener { documentSnapshot ->
-                    if (documentSnapshot.exists()) {
-                        val userData = documentSnapshot.data
-                        val username = userData?.get("username")
-                        val email = userData?.get("email")
-
-                        if (username != null) {
-                            binding.tvUserName.text = username.toString()
-                            binding.tvEmail.text = email.toString()
+                            if (username != null) {
+                                binding.tvUserName.text = username.toString()
+                                binding.tvEmail.text = email.toString()
+                            } else {
+                                Toast.makeText(this@ProfileActivity, "Username not found", Toast.LENGTH_LONG).show()
+                            }
                         } else {
-                            Toast.makeText(this, "Username not found", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this@ProfileActivity, "User data not found", Toast.LENGTH_LONG).show()
                         }
-                    } else {
-                        Toast.makeText(this, "User data not found", Toast.LENGTH_LONG).show()
                     }
-                }
-                .addOnFailureListener { e ->
-                    Toast.makeText(this, "Error while retrieving user data: $e", Toast.LENGTH_LONG).show()
-                }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(this@ProfileActivity, "Error while retrieving user data: $e", Toast.LENGTH_LONG).show()
+                    }
         } else {
             Toast.makeText(this, "User is not authenticated", Toast.LENGTH_LONG).show()
         }

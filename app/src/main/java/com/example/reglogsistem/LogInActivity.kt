@@ -42,6 +42,7 @@ class LogInActivity : AppCompatActivity() {
                         if (it.isSuccessful) {
                             Toast.makeText(this@LogInActivity, "Success",Toast.LENGTH_LONG).show()
                             clicked(ProfileActivity())
+                            this@LogInActivity.finish()
                         }else {
                             Toast.makeText(this@LogInActivity, "Log in error",Toast.LENGTH_LONG).show()
                         }
