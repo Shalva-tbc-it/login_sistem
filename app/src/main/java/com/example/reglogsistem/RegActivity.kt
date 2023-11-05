@@ -2,20 +2,15 @@ package com.example.reglogsistem
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
 import android.text.TextUtils
-import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.reglogsistem.databinding.ActivityRegBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class RegActivity : AppCompatActivity() {
 
@@ -95,11 +90,11 @@ class RegActivity : AppCompatActivity() {
                                         "email" to email,
                                         "password" to pass
                                     )
-
                                     FirebaseFirestore.getInstance().collection("users")
                                         .document(user.uid).set(userData).addOnSuccessListener {
                                             // The field has been successfully added to Firestore
-
+                                            clicked(LogInActivity())
+                                            this@RegActivity.finish()
                                         }.addOnFailureListener { e ->
                                             // Error adding field
                                             Toast.makeText(
@@ -108,11 +103,7 @@ class RegActivity : AppCompatActivity() {
                                                 Toast.LENGTH_LONG
                                             ).show()
                                         }
-
-
                                 }
-                                clicked(LogInActivity())
-                                this@RegActivity.finish()
                             } else {
                                 Toast.makeText(
                                     this@RegActivity, "Registration failed.", Toast.LENGTH_LONG
