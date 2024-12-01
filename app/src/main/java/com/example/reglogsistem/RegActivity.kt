@@ -26,6 +26,7 @@ class RegActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
         onClick()
 
+
     }
 
     private fun onClick() {

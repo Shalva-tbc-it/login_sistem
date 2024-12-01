@@ -3,11 +3,16 @@ package com.example.reglogsistem
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log.d
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.reglogsistem.databinding.ActivityMainBinding
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanIntentResult
+import com.journeyapps.barcodescanner.ScanOptions
 
 
-class MainActivity : AppCompatActivity() {
+open class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -19,7 +24,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
     private fun onClick() {
 
         binding.apply {
@@ -29,15 +33,27 @@ class MainActivity : AppCompatActivity() {
             }
 
             btnLog.setOnClickListener {
-                clicked(LogInActivity())
+//                clicked(LogInActivity())
+                scannerLauncher.launch(ScanOptions().setPrompt("Qr Scan")
+                    .setDesiredBarcodeFormats(ScanOptions.EAN_13))
             }
 
         }
     }
 
+    private val scannerLauncher = registerForActivityResult<ScanOptions, ScanIntentResult>(
+        ScanContract()
+    ) { resulst ->
+        if (resulst == null) {
+            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, resulst.contents, Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     private fun clicked(targetActivity: Activity) {
-        startActivity( Intent(this, targetActivity::class.java))
+        startActivity(Intent(this, targetActivity::class.java))
     }
 
 
