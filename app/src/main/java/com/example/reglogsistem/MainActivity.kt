@@ -35,7 +35,7 @@ open class MainActivity : AppCompatActivity() {
             btnLog.setOnClickListener {
 //                clicked(LogInActivity())
                 scannerLauncher.launch(ScanOptions().setPrompt("Qr Scan")
-                    .setDesiredBarcodeFormats(ScanOptions.EAN_13))
+                    .setDesiredBarcodeFormats(ScanOptions.ALL_CODE_TYPES)) // ONE_D_CODE_TYPES
             }
 
         }
